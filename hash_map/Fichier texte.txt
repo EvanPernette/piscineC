@@ -1,0 +1,68 @@
+
+void hash_map_dump(struct hash_map *hash_map)
+{
+    size_t count = 0;
+    struct hash_map *aux = hash_map;
+    struct pair_list *aux2;
+    while (count < aux->size)
+    {
+        aux2 = aux->data[count];
+        while (aux2 != NULL)
+        {
+            printf("%s: %s", aux2->key, aux2->value);
+            if (aux2->next != NULL)
+            {
+                printf(", ");
+            }
+            else
+            {
+                printf("\n");
+            }
+            aux2 = aux2->next;
+        }
+        count++;
+    }
+}
+
+size_t hash(const char *key)
+{
+    size_t i = 0;
+    size_t hash = 0;
+
+    for (i = 0; key[i] != '\0'; ++i)
+        hash += key[i];
+    hash += i;
+
+    return hash;
+}
+
+int main()
+{
+    struct hash_map *hash = hash_map_init(7);
+    bool a;
+    hash_map_insert(hash, "TARAN", "W", &a);
+    hash_map_dump(hash);
+    printf("-------------------------");
+    hash_map_insert(hash, "ACU", "51", &a);
+    hash_map_dump(hash);
+    printf("-------------------------");
+    hash_map_insert(hash, "C", "42", &a);
+    hash_map_dump(hash);
+    printf("-------------------------");
+    hash_map_insert(hash, "42", "life", &a);
+    hash_map_dump(hash);
+    printf("-------------------------");
+    hash_map_insert(hash, "SKI", "winter", &a);
+    hash_map_dump(hash);
+    printf("-------------------------");
+    hash_map_insert(hash, "TEST", "51", &a);
+    hash_map_dump(hash);
+    printf("-------------------------");
+    hash_map_remove(hash, "TEST");
+    hash_map_dump(hash);
+    printf("-------------------------");
+    printf("%s\n", hash_map_get(hash, "SKI"));
+
+    hash_map_free(hash);
+    return 0;
+}

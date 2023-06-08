@@ -1,0 +1,13 @@
+ 
+old_IFS=$IFS
+IFS=$'\n'
+for ligne in $(cat $1)
+do
+   count=${#ligne};
+   if [ $count -ge 80 ]; then
+        printf "%q"  $ligne
+        printf "\n"
+   fi
+done
+
+exit 0;
